@@ -3,6 +3,7 @@ button {
     border-style: none;
     padding: 10px;
     cursor: pointer;
+    display: none;
 }
 input {
     color: green;
