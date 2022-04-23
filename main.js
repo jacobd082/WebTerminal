@@ -199,10 +199,10 @@ function run(t) {
     }
     else if (t.startsWith("img")) {
         if (localStorage.getItem("pkg_img")=="1") {
-            if (after(t, " ").startsWith("gui")) {
-                gui("<img src='"+after(after(t, " "), " ")+"' width='200'>")
+            if (after(t, " ").startsWith("t")) {
+                print("<img src='"+after(after(t, " "), " ")+"' width='200'>")
             } else {
-                print("<img src='"+after(t, " ")+"' width='200'>")
+                gui("<img src='"+after(after(t, " "), " ")+"' width='200'>")
             }
         } else {
             print(cnf)
