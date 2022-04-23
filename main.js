@@ -41,7 +41,7 @@ function after(a, b) {
     return a.substring(a.indexOf(b)+1);
 }
 
-var allPKG = "test<br>color<br>clear<br>js<br>pkg<br>device<br>help<br>restart"
+var allPKG = "test<br>color<br>clear<br>js<br>pkg<br>device<br>help<br>restart<br>curl"
 
 var cnf = "<span style='color:red;'>ERROR: Command Not Found</span>"
 
@@ -210,6 +210,16 @@ function run(t) {
     }
     else if (t.startsWith("gui-browse")) {
         gui("<iframe src='"+after(t, " ")+"' width='400px' height='400px'>Error</span>")
+    }
+    else if (t.startsWith("curl")) {
+        if (after(t, " ")=="curl") {
+            print("Curl is used to receive JSON form URLs. Use by: > curl #url#")
+        } else {
+            print("Sending request...")
+            fetch(after(t, " "))
+                .then(response => response.json())
+                .then(data => print(JSON.stringify(data)))
+        }
     }
 
     else {
