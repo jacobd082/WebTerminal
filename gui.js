@@ -3,6 +3,9 @@ function gui(e) {
     document.getElementById("mydiv").style.display=("block")
 }
 
+function closeGUI() {
+  document.getElementById('mydiv').style.display=('none')
+}
 
 
 
