@@ -11,11 +11,16 @@
     <link href="icon.png" rel="icon"
 </head>
 <body style="background-color: black; color: green; font-family: 'Source Code Pro', monospace;">
-
+    <!-- Draggable DIV -->
+    <div id="mydiv">
+        <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+        <div id="mydivheader">Graphic User Interface   <a href="javascript:document.getElementById('mydiv').style.display=('none')">Close</a></div>
+        <span id="gui"></span>
+    </div>
     <div id="main"></div>
     > <input autofocus onsubmit="" id="t" spellcheck="false" style="width: 80%;">
     <button id="bu" onclick="run(document.getElementById('t').value)">RUN</button>
+    <script src="gui.js"></script>
     <script src="main.js"></script>
-    <script src="mods/test.js" type="module"></script>
 </body>
 </html>

@@ -54,6 +54,11 @@ function run(t) {
     if (t=="test") {
         print("Test Run C")
     }
+    else if (t=="test gui") {
+        print("Opening GUI...")
+        gui("<h1>This is a test of the GUI</h1>")
+        print("GUI opened.")
+    }
     else if (t.startsWith("color")) {
         document.body.style.color=(after(t, " "))
         print("Color set.")
@@ -194,7 +199,11 @@ function run(t) {
     }
     else if (t.startsWith("img")) {
         if (localStorage.getItem("pkg_img")=="1") {
-            print("<img src='"+after(t, " ")+"' width='200'>")
+            if (after(t, " ").startsWith("gui")) {
+                gui("<img src='"+after(after(t, " "), " ")+"' width='200'>")
+            } else {
+                print("<img src='"+after(t, " ")+"' width='200'>")
+            }
         } else {
             print(cnf)
         }
