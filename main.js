@@ -208,6 +208,9 @@ function run(t) {
             print(cnf)
         }
     }
+    else if (t.startsWith("gui-browse")) {
+        gui("<iframe src='"+after(t, " ")+"' width='400px' height='400px'>Error</span>")
+    }
 
     else {
         print(cnf)
