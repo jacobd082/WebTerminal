@@ -1,0 +1,15 @@
+button {
+    background-color: green;
+    border-style: none;
+    padding: 10px;
+    cursor: pointer;
+}
+input {
+    color: green;
+    padding: 10px;
+    background-color: black;
+    border-style: none;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
