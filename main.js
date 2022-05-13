@@ -36,12 +36,15 @@ input.addEventListener("keyup", function(event) {
 function print(text) {
     document.getElementById("main").innerHTML=(document.getElementById("main").innerHTML+"<br>"+text)
 }
+function error(text) {
+    document.getElementById("main").innerHTML=(document.getElementById("main").innerHTML+"<br><span style='color: red;'>"+text+"</span>")
+}
 
 function after(a, b) {
     return a.substring(a.indexOf(b)+1);
 }
 
-var allPKG = "test<br>color<br>clear<br>js<br>pkg<br>device<br>help<br>restart<br>curl"
+var allPKG = "test<br>color<br>clear<br>js<br>pkg<br>device<br>help<br>restart<br>curl<br>ls<br>cd<br>fs"
 
 var cnf = "<span style='color:red;'>ERROR: Command Not Found</span>"
 
@@ -221,7 +224,56 @@ function run(t) {
                 .then(data => print(JSON.stringify(data)))
         }
     }
+    else if (t.startsWith("ls")) {
+        if (after(t, " ")=="ls") {
+            if (localStorage.getItem("fs-e")=="true") {
+                                var arr = []; // Array to hold the keys
+                // Iterate over localStorage and insert the keys that meet the condition into arr
+                for (var i = 0; i < localStorage.length; i++){
+                    if (localStorage.key(i).substring(0,8) == 'fs-file-') {
+                        arr.push(localStorage.key(i));
+                    }
+                }
 
+                // Iterate over arr and remove the items by key
+                for (var i = 0; i < arr.length; i++) {
+                    print(after(after(arr[i], "-"), "-"))
+                }
+            } else {
+                error("ERROR: WebTerminal does not have a filesystem configured. To configure a FileSystem run > fs config")
+            }
+        } else {
+            error("ERROR: Directory \""+after(t, " ")+"\" not found.")
+        }
+    }
+    else if (t.startsWith("cd")) {
+        error("ERROR: File or directory \""+after(t, " ")+"\" not found.")
+    }
+    else if (t.startsWith("fs")) {
+        if (after(t, " ")=="fs") {
+            print("WebTerminal FileSystem v1.1 [BETA]")
+            print("Basic Commands:<br>config<br>create #file name# #file content#<br>delete #file name#<br>open #file name#")
+        }
+        if (after(t, " ")=="config") {
+            print("Please note that FileSystem is in beta.")
+            print("FileSystem is being configured")
+            localStorage.setItem("fs-e", "true")
+            print("FileSystem was configured!")
+        }
+        if (after(t, " ").startsWith("create")) {
+            var filename = after(after(t, " "), " ").split(' ')[0]
+            var filecont = after(after(after(t, " "), " "), " ")
+            localStorage.setItem("fs-file-"+filename,filecont)
+            print("File saved as "+filename)
+        }
+        if (after(t, " ").startsWith("delete")) {
+            localStorage.removeItem("fs-file-"+after(after(t, " "), " "))
+            print("File \""+after(after(t, " "), " ")+"\" was deleted")
+        }
+        if (after(t, " ").startsWith("open")) {
+            print(after(localStorage.getItem("fs-file-"+after(after(t, " "), " ")), " "))
+        }
+    }
     else {
         print(cnf)
     }
