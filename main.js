@@ -274,6 +274,9 @@ function run(t) {
             print(after(localStorage.getItem("fs-file-"+after(after(t, " "), " ")), " "))
         }
     }
+    else if (t=="") {
+        // Nothing
+    }
     else {
         print(cnf)
     }
